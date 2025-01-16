@@ -25,4 +25,4 @@ jobs:
       with:
        context:
        push: true
-       tags: git-rahul1505/githubaction:latest
+       tags: git-rahul15/student-db:latest
