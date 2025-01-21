@@ -90,10 +90,10 @@ DATABASE_CONNECTION_STRING = config('DATABASE_CONNECTION_STRING', cast=str)
 if DATABASE_CONNECTION_STRING is not None:
     import dj_database_url
     DATABASES = {
-    'default': dj_database_url.config(
+    "efault": dj_database_url.config(
         default=DATABASE_CONNECTION_STRING,
         conn_max_age = CONN_MAX_AGE,
-        conn_health_checks = True
+        conn_health_checks = True,
     )
 }
     
