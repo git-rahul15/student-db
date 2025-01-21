@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-h)+l0konqe1sb=(6(6u&459@c5b$(ohgr(g#&l94d@avm7kv_j'
+SECRET_KEY = config('DJANGO_SECRET_KEY', cast=str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DJANGO_DEBUG', cast = bool)
 
-ALLOWED_HOSTS = ['ed1c-106-78-2-46.ngrok-free.app']
+ALLOWED_HOSTS = ['ed1c-106-78-2-46.ngrok-free.app', 'localhost']
 
 if DEBUG:
     ALLOWED_HOSTS += ['localhost',
@@ -81,12 +82,21 @@ WSGI_APPLICATION = 'stumanager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+
+CONN_MAX_AGE = config('CONN_MAX_AGE', cast= int, default = 30)
+DATABASE_CONNECTION_STRING = config('DATABASE_CONNECTION_STRING', cast=str)
+
+
+if DATABASE_CONNECTION_STRING is not None:
+    import dj_database_url
+    DATABASES = {
+    'default': dj_database_url.config(
+        default=DATABASE_CONNECTION_STRING,
+        conn_max_age = CONN_MAX_AGE,
+        conn_health_checks = True
+    )
 }
+    
 
 
 # Password validation
