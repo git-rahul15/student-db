@@ -84,14 +84,14 @@ WSGI_APPLICATION = 'stumanager.wsgi.application'
 
 
 CONN_MAX_AGE = config('CONN_MAX_AGE', cast= int, default = 30)
-DATABASE_CONNECTION_STRING = config('DATABASE_CONNECTION_STRING', cast=str)
+DATABASE_URL = config('DATABASE_CONNECTION_STRING', cast=str)
 
 
 if DATABASE_CONNECTION_STRING is not None:
     import dj_database_url
     DATABASES = {
     "default": dj_database_url.config(
-        default=DATABASE_CONNECTION_STRING,
+        default=DATABASE_URL,
         conn_max_age = CONN_MAX_AGE,
         conn_health_checks = True,
     )
