@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'stumanager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-ENGINE = config('ENGINE', cast = str, default = None)
+ENGINE = config('ENGINE', cast = str, default = 'django.db.backends.postgresql')
 CONN_MAX_AGE = config('CONN_MAX_AGE', cast= int, default = 30)
 DATABASE_URL = config('DATABASE_CONNECTION_STRING', cast=str)
 
