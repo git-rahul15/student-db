@@ -171,3 +171,8 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 .DS_Store
+
+
+#vendor files
+src/staticfiles/vendors
+src/local-cdn

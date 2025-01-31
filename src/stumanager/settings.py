@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -91,7 +92,7 @@ if DATABASE_URL is not None:
     import dj_database_url
     DATABASES = {
     "default": dj_database_url.config(
-        engine=ENGINE,
+        # engine=ENGINE,
         default=DATABASE_URL,
         conn_max_age = CONN_MAX_AGE,
         conn_health_checks = True,
@@ -134,7 +135,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_BASE_DIRS = BASE_DIR / "staticfiles"
+STATICFILES_VENDOR_DIRS = STATICFILES_BASE_DIRS / "vendors"
+
+STATICFILES_DIRS = [
+    STATICFILES_BASE_DIRS
+]
+
+
+
+STATIC_ROOT = BASE_DIR / "local-cdn"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
