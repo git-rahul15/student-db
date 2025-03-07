@@ -12,7 +12,9 @@
       <h3>hiieee</h3>
       <h2>Total Visits:</h2>
       {{ visits }}
-      
+      {% if request.user_is_authenticated %}
+      <h1>hi there </h1>
+      {% endif %}
       {{block.super}}
      {% endblock content %}
     
