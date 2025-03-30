@@ -1,41 +1,58 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
+{% load allauth_ui %}
+{% load widget_tweaks %}
 
 {% block content %}
 <link href="{% static 'localcss/login.css' %}" rel="stylesheet" />
-<div class="container mx-auto flex justify-center items-center min-h-screen mt-10">
+
+<div class="container mx-auto flex justify-center items-center min-h-screen mt-1">
     <div class="card p-6 bg-gray-100 shadow-lg rounded-lg w-full max-w-md">
-        <img src="{% static 'logo/logo.svg' %}"  class="flex items-center space-x-3 rtl:space-x-reverse h-8" alt="Site Logo" />
-        <h2 class="login text-center text-2xl font-bold">SIGN UP</h2>
+        <img src="{% static 'logo/logo.svg' %}" class="flex items-center space-x-3 rtl:space-x-reverse h-8" alt="Site Logo" />
+        <h2 class="login text-center text-2xl font-bold">{% trans "Sign In" %}</h2>
         
-        <form method="post" action="{% url 'account_login' %}">
-            {% csrf_token %}
+        {% if not SOCIALACCOUNT_ONLY %}
+            <div class="py-3 text-center">
+                {% blocktranslate %}If you have not created an account yet, then please
+                <a class="text-blue-500 hover:underline" href="{{ signup_url }}">sign up</a> first.{% endblocktranslate %}
+            </div>
             
-            <div class="inputBox mb-4">
-                <input type="text" name="login" required="required" class="w-full p-2 border border-gray-300 rounded">
-                <span class="user">Username</span>
-            </div>
-
-            <div class="inputBox mb-4">
-                <input type="password" name="password" required="required" class="w-full p-2 border border-gray-300 rounded">
-                <span>Password</span>
-            </div>
-
-            <div class="text-center mb-4">
-                <a href="{% url 'account_reset_password' %}" class="text-blue-500 hover:underline">Forgot password?</a>
-            </div>
-
-            <div class="flex justify-center">
-                <button type="submit" class="enter bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600">
-                    Sign In
-                </button>
-                <a href="{% url 'account_signup' %}" class="enter bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 flex items-center justify-center">
-                    Sign Up
-                </a>
-            </div>
-        </form>
+            {% url 'account_login' as action_url %}
+            <form method="post" action="{{ action_url }}">
+                {% csrf_token %}
+                
+                <div class="inputBox mb-4">
+                    <input type="text" name="login" required="required" class="w-full p-2 border border-gray-300 rounded">
+                    <span class="user">Username</span>
+                </div>
+                
+                <div class="inputBox mb-4">
+                    <input type="password" name="password" required="required" class="w-full p-2 border border-gray-300 rounded">
+                    <span>Password</span>
+                </div>
+                
+                <div class="flex items-center mt-4">
+                    <input type="checkbox" name="remember" id="remember" class="w-3 h-3">
+                    <label for="remember" class="ml-2 text-s">{% trans "Remember me" %}</label>
+                </div>
+                
+                <div class="flex justify-between items-center mt-4">
+                    <a class="text-sm text-blue-500 hover:underline" href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a>
+                </div>
+                
+                <div class="flex justify-center mt-4">
+                    <button type="submit" class="enter bg-blue-500 text-black px-4 py-2 rounded mr-2 hover:bg-blue-600">
+                        {% trans "Sign In" %}
+                    </button>
+                </div>
+            </form>
+        {% endif %}
+        
+        {% if SOCIALACCOUNT_ENABLED %}
+            {% include "socialaccount/snippets/login.html" %}
+        {% endif %}
     </div>
 </div>
 
-{% endblock %}
+{% endblock content %}

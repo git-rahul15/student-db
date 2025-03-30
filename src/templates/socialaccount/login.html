@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load allauth_ui %}
+{% load allauth %}
+{% block content %}
+{% load static %}}
+<link href="{% static 'localcss/login.css' %}" rel="stylesheet" />
+
+<div class="container mx-auto flex justify-center items-center min-h-screen mt-10">
+    <div class="flex items-center justify-center space-x-3 rtl:space-x-reverse">
+        {% if process == "connect" %}
+        {% blocktrans asvar heading with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}
+        {% blocktrans asvar subheading with provider.name as provider %}You are about to connect a new third-party account from {{ provider }}.{% endblocktrans %}
+        {% else %}
+        {% blocktrans asvar heading with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}
+        {% blocktrans asvar subheading with provider.name as provider %}You are about to sign in using a third-party account from {{ provider }}.{% endblocktrans %}
+        {% endif %}
+        {% #container heading=heading subheading=subheading %}
+        {% trans "Continue" as button_text %}
+        {% #form button_text=button_text %}
+        {% csrf_token %}
+        {{ redirect_field }}
+        {% /form %}
+        {% /container %}
+    </div>
+</div>
+
+{% endblock content %}

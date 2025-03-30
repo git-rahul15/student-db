@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from .models import visits
+from django.contrib.auth.decorators import login_required
 
 
 
+@login_required
 def home_page(request, *args, **kwargs ):
     path = request.path
     
