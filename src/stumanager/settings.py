@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'stumanager.wsgi.application'
 
 ENGINE = config('ENGINE', cast = str, default = 'django.db.backends.postgresql')
 CONN_MAX_AGE = config('CONN_MAX_AGE', cast= int, default = 30)
-DATABASE_URL = config('DATABASE_CONNECTION_STRING', default = None)
+DATABASE_URL = config('DATABASE_URL', default = None)
 
 
 if DATABASE_URL is not None:
