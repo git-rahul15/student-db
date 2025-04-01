@@ -45,9 +45,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #local apps
     'home',
     'query',
     'studentsData',
+    'teachersData',
+    'courseData',
+    'managersData',
     'commando',
     
     #django_all_auth
