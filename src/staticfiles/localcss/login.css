@@ -201,4 +201,36 @@
     background-color: #001d35;
     opacity: 8%;
   }
-  
+
+  /* Style the container */
+  .category-toggle {
+    display: flex;
+    border: 2px solid white;
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+    margin: auto;
+  }
+
+  /* Style each option (label) */
+  .category-option {
+    flex: 1;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* Hide the actual radio input */
+  .hidden {
+    display: none;
+  }
+
+  /* Change appearance when selected */
+  .hidden:checked + .category-option {
+    background-color: yellow;
+    color: black;
+  }

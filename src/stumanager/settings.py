@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'courseData',
     'managersData',
     'commando',
+    'customAuthentication',
     
     #django_all_auth
     "allauth_ui",
@@ -205,7 +206,10 @@ if all([ADMIN_USER_NAME, ADMIN_USER_EMAIL]):
 
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_NOTIFICATIONS= True
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+# settings.py
+ACCOUNT_SIGNUP_FORM_CLASS = 'customAuthentication.customSignupForm.CustomSignupForm'
+
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*', 'category*']
 ACCOUNT_EMAIL_VERIFICATION="mandatory"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Stu|Manager]"
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
