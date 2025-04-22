@@ -1,5 +1,6 @@
 from django import forms
-from .models import Profile  # Import your Profile model
+from .models import Profile  
+from teachersData.models import Teacher# Import your Profile model
 
 class CustomSignupForm(forms.Form):
     CATEGORY_CHOICES = [
@@ -14,3 +15,10 @@ class CustomSignupForm(forms.Form):
         category = self.cleaned_data.get('category')
         Profile.objects.create(user=user, category=category)
         user.save()
+        if category == 'teacher':
+            teacher = Teacher.objects.create(user=user, username=user.username,email=user.email)
+            teacher.save()
+
+
+
+    

@@ -10,10 +10,20 @@
         <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
           <span class="sr-only">Open user menu</span>
           {% if request.user.is_authenticated %}
-          <img class="w-8 h-8 rounded-full" src="{% static 'logo/authenticated.svg' %} "alt="user photo">
+          {% if request.user.profile.category == "teacher" %}
+            <img src="{% static 'logo/authenticated.svg' %}" alt="Teacher Photo" class="rounded-full h-8 w-8 object-cover">
+          
+          {% elif request.user.profile.category == "manager" %}
+            <img src="{{ request.user.manager.photo.url }}" alt="Manager Photo" class="rounded-full h-8 w-8 object-cover">
+          
+          {% elif request.user.profile.category == "student" %}
+            <img src="{{ request.user.student.photo.url }}" alt="Student Photo" class="rounded-full h-8 w-8 object-cover">
+          
           {% else %}
-          <img class="w-8 h-8 rounded-full" src="{% static 'logo/unknownuser.svg' %} "alt="user photo">
+            <img src="{% static 'logo/authenticated.svg' %}" alt="Default User" class="rounded-full h-8 w-8 object-cover">
           {% endif %}
+        {% endif %}
+
         </button>
         <!-- Dropdown menu -->
         {% if request.user.is_authenticated %}

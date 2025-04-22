@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", home_view.home_page, name="home"),
     path('accounts/', include('allauth.urls')),
+    path('sign-up/', include('teachersData.urls')),
 ]

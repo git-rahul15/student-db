@@ -38,39 +38,47 @@
     background: transparent;
     border-left: 2px solid #000;
     border-bottom: 2px solid #000;
-    transition: 0.1s;
+    transition: 0.2s;
     border-bottom-left-radius: 8px;
   }
   
   .inputBox span {
-    margin-top: 5px;
     position: absolute;
-    left: 0;
-    transform: translateY(-4px);
-    margin-left: 10px;
-    padding: 10px;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    padding: 5px 8px;
     pointer-events: none;
     font-size: 12px;
     color: #000;
     text-transform: uppercase;
-    transition: 0.2s;
     letter-spacing: 3px;
+    transition: 0.3s ease-in-out;
+    background: transparent;
     border-radius: 8px;
   }
   
-  .inputBox input:valid~span,
-  .inputBox input:focus~span {
-    transform: translateX(113px) translateY(-15px);
-    font-size: 0.8em;
-    padding: 5px 10px;
+  /* Float the label to top-right corner on focus/valid/active */
+  .inputBox input:valid ~ span,
+  .inputBox input:focus ~ span,
+  .inputBox textarea:valid ~ span,
+  .inputBox textarea:focus ~ span,
+  .inputBox select:valid ~ span,
+  .inputBox select:focus ~ span, 
+  .inputBox.active span {
+    top: -10px;
+    right: 10;
     background: #000;
-    letter-spacing: 0.2em;
     color: #fff;
-    border: 2px;
+    font-size: 0.75em;
+    letter-spacing: 0.15em;
+    padding: 4px 8px;
+    transform: none;
   }
   
-  .inputBox input:valid,
-  .inputBox input:focus {
+
+  .inputBox input:focus,
+  .inputBox input:valid {
     border: 2px solid #000;
     border-radius: 8px;
   }

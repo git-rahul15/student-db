@@ -32,6 +32,6 @@ class Course(models.Model):
     
 @receiver(pre_save, sender=Course)
 def set_unique_code(sender, instance, **kwargs):
-    if not instance.code:
-        instance.code = generate_unique_code(instance)
+    if not instance.course_code:
+        instance.course_code = generate_unique_code(instance)
     

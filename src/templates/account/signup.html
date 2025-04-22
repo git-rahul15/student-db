@@ -6,9 +6,6 @@
 
 {% block content %}
 <link href="{% static 'localcss/login.css' %}" rel="stylesheet" />
-
-
-
 <div class="container mx-auto flex justify-center items-center min-h-screen mt-1">
     <div class="card p-6 bg-gray-100 shadow-lg rounded-lg w-full max-w-md">
         <img src="{% static 'logo/logo.svg' %}" class="flex items-center space-x-3 rtl:space-x-reverse h-8" alt="Site Logo" />
@@ -52,11 +49,7 @@
                             <label for="category_{{ forloop.counter }}" class="category-option">{{ choice.1 }}</label>
                         {% endfor %}
                     </div>
-                </div>
-                
-                
-                
-                
+                </div>            
                 {{ redirect_field }}
                 <div class="flex justify-center mt-4">
                     <button type="submit" class="enter bg-blue-500 text-black px-4 py-2 rounded mr-2 hover:bg-blue-600">

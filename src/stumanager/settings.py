@@ -169,6 +169,9 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / "local-cdn"
 STORAGES = {
     # ...
+     "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
@@ -208,9 +211,9 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_NOTIFICATIONS= True
 # settings.py
 ACCOUNT_SIGNUP_FORM_CLASS = 'customAuthentication.customSignupForm.CustomSignupForm'
-
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*', 'category*']
 ACCOUNT_EMAIL_VERIFICATION="mandatory"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/complete-profile/"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Stu|Manager]"
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 AUTHENTICATION_BACKENDS = [
