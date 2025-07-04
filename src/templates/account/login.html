@@ -7,7 +7,7 @@
 {% block content %}
 <link href="{% static 'localcss/login.css' %}" rel="stylesheet" />
 
-<div class="container mx-auto flex justify-center items-center min-h-screen mt-1">
+<div class="container mx-auto flex justify-center items-center min-h-screen" style="align-items: center; background-color: white;"> 
     <div class="card p-6 bg-gray-100 shadow-lg rounded-lg w-full max-w-md">
         <img src="{% static 'logo/logo.svg' %}" class="flex items-center space-x-3 rtl:space-x-reverse h-8" alt="Site Logo" />
         <h2 class="login text-center text-2xl font-bold">{% trans "Sign In" %}</h2>
