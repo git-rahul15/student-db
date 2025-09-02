@@ -10,3 +10,5 @@ django-allauth-ui
 django-widget-tweaks
 slippers
 pillow
+cloudinary
+django-cloudinary-storage

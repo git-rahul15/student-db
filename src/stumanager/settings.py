@@ -64,8 +64,17 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     "widget_tweaks",
     "slippers",
-    
+
+    #cloudinary
+    "cloudinary_storage",
+    "cloudinary",    
 ]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=None),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=None),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=None),}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -170,7 +179,7 @@ STATIC_ROOT = BASE_DIR / "local-cdn"
 STORAGES = {
     # ...
      "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": 'cloudinary_storage.storage.MediaCloudinaryStorage',
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",

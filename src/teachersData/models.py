@@ -31,7 +31,7 @@ class Teacher(models.Model):
     subject_specialization = models.CharField(max_length=100, null=True, blank=True)
     hire_date = models.DateField(null=True, blank=True)
     years_of_experience = models.IntegerField(
-        validators=[MinValueValidator(0)]
+        validators=[MinValueValidator(0)], default=0
     )
     photo = models.ImageField(upload_to='teachers/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
