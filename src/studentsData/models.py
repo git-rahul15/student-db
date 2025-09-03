@@ -34,7 +34,7 @@ class Student(models.Model):
     id = models.AutoField(primary_key=True, editable=False, auto_created=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    age = models.IntegerField()
+    age = models.IntegerField(null=True, blank=True)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
     address = models.TextField()

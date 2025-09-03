@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path('complete-profile/', views.complete_profile, name='complete_profile'),
+    path('signup/', views.custom_signup, name='custom_signup'),
 ]

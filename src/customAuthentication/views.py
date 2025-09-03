@@ -1,10 +1,47 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from teachersData.models import Teacher
 from studentsData.models import Student
 from managersData.models import Managers
 from allauth.account.decorators import verified_email_required
+from django.contrib.auth.models import User
+from django import forms
+
+def custom_signup(request):
+    from allauth.account.forms import SignupForm
+
+    class ExtendedSignupForm(SignupForm):
+        CATEGORY_CHOICES = [
+            ('student', 'Student'),
+            ('teacher', 'Teacher'),
+            ('manager', 'Manager'),
+        ]
+        category = forms.ChoiceField(choices=CATEGORY_CHOICES, initial="teacher", widget=forms.RadioSelect, required=True)
+
+        def save(self, request):
+            user = super().save(request)
+            category = self.cleaned_data.get('category')
+            Profile.objects.create(user=user, category=category)
+            if category == 'teacher':
+                Teacher.objects.create(user=user, username=user.username, email=user.email)
+            elif category == 'manager':
+                Managers.objects.create(user=user, username=user.username, email=user.email)
+            elif category == 'student':
+                Student.objects.create(user=user, username=user.username, email=user.email)
+            return user
+
+    if request.method == 'POST':
+        form = ExtendedSignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(request)
+            messages.success(request, 'Account created successfully!')
+            return redirect('account_email_verification_sent')
+    else:
+        form = ExtendedSignupForm()
+
+    return render(request, 'account/signup.html', {'form': form})
 
 @login_required
 @verified_email_required

@@ -14,42 +14,84 @@
         <div class="py-3 text-center">
             {% blocktranslate %}Already have an account? Then please <a class="text-blue-500 hover:underline" href="{{ login_url }}">sign in</a>.{% endblocktranslate %}
         </div>
-        
         {% if not SOCIALACCOUNT_ONLY %}
             <form method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
-                
+
+                {% if form.non_field_errors %}
+                    <div class="mb-4 text-red-500">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
                 <div class="inputBox mb-4">
                     {{ form.username|attr:"placeholder:"|add_class:"w-full p-2 border border-gray-300 rounded" }}
                     <span class="user">Username</span>
+                    {% if form.username.errors %}
+                        <div class="text-red-500 text-sm mt-1">
+                            {% for error in form.username.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-                
+
                 <div class="inputBox mb-4">
                     {{ form.email|attr:"placeholder:"|add_class:"w-full p-2 border border-gray-300 rounded" }}
                     <span>Email</span>
+                    {% if form.email.errors %}
+                        <div class="text-red-500 text-sm mt-1">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-                  
+
                 <div class="inputBox mb-4">
                     {{ form.password1|attr:"placeholder:"|add_class:"w-full p-2 border border-gray-300 rounded" }}
                     <span>Password</span>
+                    {% if form.password1.errors %}
+                        <div class="text-red-500 text-sm mt-1">
+                            {% for error in form.password1.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-                
+
                 <div class="inputBox mb-4">
                     {{ form.password2|attr:"placeholder:"|add_class:"w-full p-2 border border-gray-300 rounded" }}
                     <span>Confirm Password</span>
+                    {% if form.password2.errors %}
+                        <div class="text-red-500 text-sm mt-1">
+                            {% for error in form.password2.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-
 
                 <div class="mb-4">
                     <div class="category-toggle">
                         {% for choice in form.category.field.choices %}
-                            <input type="radio" id="category_{{ forloop.counter }}" name="{{ form.category.html_name }}" 
+                            <input type="radio" id="category_{{ forloop.counter }}" name="{{ form.category.html_name }}"
                                    value="{{ choice.0 }}" class="hidden peer"
-                                   {% if form.category.value == choice.1 %}checked{% endif %}>
+                                   {% if form.category.value == choice.0 or forloop.first %}checked{% endif %}>
                             <label for="category_{{ forloop.counter }}" class="category-option">{{ choice.1 }}</label>
                         {% endfor %}
                     </div>
-                </div>            
+                    {% if form.category.errors %}
+                        <div class="text-red-500 text-sm mt-1">
+                            {% for error in form.category.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
                 {{ redirect_field }}
                 <div class="flex justify-center mt-4">
                     <button type="submit" class="enter bg-blue-500 text-black px-4 py-2 rounded mr-2 hover:bg-blue-600">
@@ -58,7 +100,7 @@
                 </div>
             </form>
         {% endif %}
-        
+
         {% if SOCIALACCOUNT_ENABLED %}
             {% include "socialaccount/snippets/login.html" %}
         {% endif %}

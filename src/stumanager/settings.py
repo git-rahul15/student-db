@@ -226,8 +226,8 @@ if all([ADMIN_USER_NAME, ADMIN_USER_EMAIL]):
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_NOTIFICATIONS= True
 # settings.py
-ACCOUNT_SIGNUP_FORM_CLASS = 'customAuthentication.customSignupForm.CustomSignupForm'
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*', 'category*']
+# ACCOUNT_SIGNUP_FORM_CLASS = 'customAuthentication.customSignupForm.CustomSignupForm'
+# ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*', 'category*']
 ACCOUNT_EMAIL_VERIFICATION="optional"
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/accounts/complete-profile/"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Stu|Manager]"

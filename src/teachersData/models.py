@@ -33,7 +33,7 @@ class Teacher(models.Model):
     years_of_experience = models.IntegerField(
         validators=[MinValueValidator(0)], default=0
     )
-    photo = models.ImageField(upload_to='teacher/') 
+    photo = models.ImageField(upload_to='teacher/', null=True, blank=True) 
     is_active = models.BooleanField(default=True)
 
 
