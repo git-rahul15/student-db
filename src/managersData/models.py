@@ -16,5 +16,5 @@ class Managers(models.Model):
     address = models.TextField()
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_joining = models.DateField(null=True, blank=True, auto_now_add=True)
-    photo = CloudinaryField('image', null=True, blank=True)
+    photo = models.ImageField(upload_to='teacher/', null=True, blank=True) 
     is_active = models.BooleanField(default=True)
