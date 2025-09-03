@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 import random
 import string
-
+from cloudinary.models import CloudinaryField
 
 def generate_unique_code(instance):
     base_name = slugify(instance.username)[:3].upper()  # Take first 3 characters of slugified name
@@ -33,7 +33,7 @@ class Teacher(models.Model):
     years_of_experience = models.IntegerField(
         validators=[MinValueValidator(0)], default=0
     )
-    photo = models.ImageField(upload_to='teachers/', null=True, blank=True)
+    photo = models.ImageField(upload_to='teacher/') 
     is_active = models.BooleanField(default=True)
 
 
@@ -41,3 +41,4 @@ class Teacher(models.Model):
 def set_unique_code(sender, instance, **kwargs):
     if not instance.teacher_code:
         instance.teacher_code = generate_unique_code(instance)
+

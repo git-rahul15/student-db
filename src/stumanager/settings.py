@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -71,9 +75,12 @@ INSTALLED_APPS = [
 ]
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=None),
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=None, cast=str),
     'API_KEY': config('CLOUDINARY_API_KEY', default=None),
-    'API_SECRET': config('CLOUDINARY_API_SECRET', default=None),}
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=None, cast=str),
+    'SECURE': True
+}
+
 
 
 MIDDLEWARE = [
@@ -221,8 +228,8 @@ ACCOUNT_EMAIL_NOTIFICATIONS= True
 # settings.py
 ACCOUNT_SIGNUP_FORM_CLASS = 'customAuthentication.customSignupForm.CustomSignupForm'
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*', 'category*']
-ACCOUNT_EMAIL_VERIFICATION="mandatory"
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/complete-profile/"
+ACCOUNT_EMAIL_VERIFICATION="optional"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/accounts/complete-profile/"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Stu|Manager]"
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 AUTHENTICATION_BACKENDS = [

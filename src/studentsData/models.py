@@ -1,6 +1,8 @@
 from django.db import models
 from teachersData.models import Teacher
 from courseData.models import Course, Subject 
+from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 
 
@@ -27,10 +29,12 @@ class School(models.Model):
     website = models.URLField(null=True, blank=True)
 
 class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    username = models.CharField(max_length=100, unique=True, null=True, blank=True)
     id = models.AutoField(primary_key=True, editable=False, auto_created=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    age = models.IntegerField
+    age = models.IntegerField()
     email = models.EmailField()
     phone = models.CharField(max_length=20)
     address = models.TextField()
