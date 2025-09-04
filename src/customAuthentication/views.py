@@ -8,6 +8,7 @@ from managersData.models import Managers
 from allauth.account.decorators import verified_email_required
 from django.contrib.auth.models import User
 from django import forms
+from django.urls import reverse
 
 def custom_signup(request):
     from allauth.account.forms import SignupForm
@@ -41,7 +42,9 @@ def custom_signup(request):
     else:
         form = ExtendedSignupForm()
 
-    return render(request, 'account/signup.html', {'form': form})
+    login_url = reverse('account_login')
+
+    return render(request, 'account/signup.html', {'form': form, 'login_url': login_url})
 
 @login_required
 @verified_email_required
